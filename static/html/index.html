@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Магазин товаров</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<header>
+    <div class="header-container">
+        <h1 class="site-title">Магазин товаров</h1>
+        <nav class="navigation">
+            <a href="cart.html">Корзина</a>
+            <a href="account.html">Личный кабинет</a>
+            <button onclick="logout()">Выход</button>
+        </nav>
+    </div>
+</header>
+<main>
+    <section class="intro-section">
+        <h2>Добро пожаловать в Магазин товаров</h2>
+        <p>Мы предлагаем широкий ассортимент товаров по доступным ценам. У нас вы найдете товары для дома, электронику, одежду и многое другое. Наша цель – предоставить вам качественный сервис и отличные предложения.</p>
+    </section>
+    <section class="search-section">
+        <h2>Поиск товаров</h2>
+        <form id="search-form">
+            <div class="search-group">
+                <label for="ram">Оперативная память:</label>
+                <select id="ram" name="ram">
+                    <option value="">Выберите объем памяти</option>
+                    <option value="4gb">4 ГБ</option>
+                    <option value="8gb">8 ГБ</option>
+                    <option value="16gb">16 ГБ</option>
+                    <option value="32gb">32 ГБ</option>
+                </select>
+            </div>
+            <div class="search-group">
+                <label for="manufacturer">Производитель:</label>
+                <select id="manufacturer" name="manufacturer">
+                    <option value="">Выберите производителя</option>
+                    <option value="apple">Apple</option>
+                    <option value="samsung">Samsung</option>
+                    <option value="lenovo">Lenovo</option>
+                    <option value="hp">HP</option>
+                </select>
+            </div>
+            <div class="search-group">
+                <label for="screen-size">Диагональ экрана:</label>
+                <select id="screen-size" name="screen-size">
+                    <option value="">Выберите диагональ экрана</option>
+                    <option value="13">13"</option>
+                    <option value="15">15"</option>
+                    <option value="17">17"</option>
+                </select>
+            </div>
+            <button type="submit">Найти</button>
+        </form>
+    </section>
+    <section class="products-section">
+        <h2>Все товары</h2>
+        <div class="products-grid" id="all-products">
+            <!-- Пример карточки товара -->
+            <div class="product-card" data-ram="8gb" data-manufacturer="apple" data-screen-size="13">
+                <img src="product1.jpg" alt="Товар 1">
+                <h3>Apple MacBook Air</h3>
+                <p>Описание товара 1</p>
+                <span class="price">1000 руб.</span>
+            </div>
+            <!-- Добавьте больше карточек товаров -->
+        </div>
+    </section>
+    <section class="discount-products-section">
+        <h2>Товары со скидкой</h2>
+        <div class="products-grid" id="discount-products">
+            <!-- Пример карточки товара со скидкой -->
+            <div class="product-card discount" data-ram="16gb" data-manufacturer="samsung" data-screen-size="15">
+                <img src="discount_product1.jpg" alt="Товар со скидкой 1">
+                <h3>Samsung Galaxy Book</h3>
+                <p>Описание товара со скидкой 1</p>
+                <span class="price old-price">1500 руб.</span>
+                <span class="price new-price">1000 руб.</span>
+            </div>
+            <!-- Добавьте больше карточек товаров со скидкой -->
+        </div>
+    </section>
+</main>
+<footer>
+    <p>&copy; 2024 Магазин товаров. Все права защищены.</p>
+</footer>
+
+<script>
+    function logout() {
+        alert('Вы вышли из аккаунта');
+    }
+
+    document.getElementById('search-form').addEventListener('submit', function(event) {
+        event.preventDefault();
+        const ram = document.getElementById('ram').value;
+        const manufacturer = document.getElementById('manufacturer').value;
+        const screenSize = document.getElementById('screen-size').value;
+        const allProducts = document.getElementById('all-products');
+        const discountProducts = document.getElementById('discount-products');
+
+        filterProducts(allProducts, ram, manufacturer, screenSize);
+        filterProducts(discountProducts, ram, manufacturer, screenSize);
+    });
+
+    function filterProducts(container, ram, manufacturer, screenSize) {
+        const cards = container.getElementsByClassName('product-card');
+        for (let card of cards) {
+            const cardRam = card.getAttribute('data-ram');
+            const cardManufacturer = card.getAttribute('data-manufacturer');
+            const cardScreenSize = card.getAttribute('data-screen-size');
+
+            if ((ram === '' || cardRam === ram) &&
+                (manufacturer === '' || cardManufacturer === manufacturer) &&
+                (screenSize === '' || cardScreenSize === screenSize)) {
+                card.style.display = '';
+            } else {
+                card.style.display = 'none';
+            }
+        }
+    }
+</script>
+</body>
+</html>

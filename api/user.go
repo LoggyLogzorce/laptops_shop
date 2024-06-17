@@ -1,7 +1,7 @@
 package api
 
 import (
-	"vapingShop/engine"
+	"laptopsShop/engine"
 )
 
 func (h *Handler) GetUser(ctx *engine.Context) {
@@ -10,4 +10,8 @@ func (h *Handler) GetUser(ctx *engine.Context) {
 
 func (h *Handler) GetAllUsers(ctx *engine.Context) {
 	ctx.Response.Write([]byte("Здесь все юзеры"))
+}
+
+func (h *Handler) PostIndex(ctx *engine.Context) {
+	ctx.Response.Write([]byte("Authorized"))
 }
